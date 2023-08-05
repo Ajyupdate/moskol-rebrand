@@ -20,13 +20,14 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Link,
+ 
   
 } from '@chakra-ui/react'
 import Image from 'next/image'
  import MoskolLogo from '../public/moskolWebLogo.png'
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 interface Props {
   children: React.ReactNode
   href: string
@@ -86,8 +87,9 @@ export default function Header() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>
-            <Image src={MoskolLogo} className="w-40" alt="" />
+            <Box  >
+              <Link href={'/'}>
+            <Image src={MoskolLogo} className="w-40" alt="" /></Link>
             </Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
