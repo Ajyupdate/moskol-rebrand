@@ -16,21 +16,30 @@ import { ReactElement, useState } from 'react'
 import {
   FcAbout,
   FcAssistant,
+  FcCallback,
   FcCollaboration,
   FcDonate,
   FcManager,
 } from 'react-icons/fc'
 import React from 'react'
+import Link from 'next/link'
+import { URL, Url } from 'url'
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 
-interface CardProps {
+export interface CardProps {
  _id?: string
   description: string
-  icon: ReactElement
-  href: string
+  icon?: ReactElement
+  href?: string | Url
   heading?: string
   title?: string
+  features?:    Benefit[];
+  benefits?:    Benefit[];
+}
+export interface Benefit {
+  title:       string;
+  description: string;
 }
 
 const Card = ({ heading, description, icon, href }: CardProps) => {
@@ -43,37 +52,43 @@ const Card = ({ heading, description, icon, href }: CardProps) => {
       overflow="hidden"
       p={5}>
       <Stack align={'start'} spacing={2}>
-        <Flex
-          w={16}
-          h={16}
-          align={'center'}
-          justify={'center'}
-          color={'white'}
-          rounded={'full'}
-          bg={useColorModeValue('gray.100', 'gray.700')}>
-          {icon}
-        </Flex>
-        <Box mt={2}>
-          <Heading size="md">{heading}</Heading>
-          <Text mt={1} fontSize={'sm'}>
-            {description}
-          </Text>
-        </Box>
-        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-          Learn more
-        </Button>
+        <Link href={href || FcCallback}>
+          <Flex
+            w={16}
+            h={16}
+            align={'center'}
+            justify={'center'}
+            color={'white'}
+            rounded={'full'}
+            bg={useColorModeValue('gray.100', 'gray.700')}>
+            {icon}
+          </Flex>
+          <Box mt={2}>
+            <Heading size="md">{heading}</Heading>
+            <Text mt={1} fontSize={'sm'}>
+              {description}
+            </Text>
+          </Box>
+          <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+            Learn more
+          </Button>
+        </Link>
       </Stack>
     </Box>
   )
 }
 
-export default function Service() {
+export interface IServiceProps{
+  queryNumber: number
+}
+
+export default function Service({queryNumber}:IServiceProps) {
   const [data, setData] = useState<CardProps[]>([])
 
  
 React.useEffect(() => {
   if (API_ENDPOINT) {
-  fetch(`${API_ENDPOINT}/services`)
+  fetch(`${API_ENDPOINT}/services?p=${queryNumber}`)
   .then((res) => res.json())
   .then((data) => setData(data))
   .catch((error) => console.log('error:', error))
@@ -105,7 +120,7 @@ React.useEffect(() => {
             heading={service.title}
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             description={`${service.description.substring(0,70)}...`}
-            href={'#'}
+            href={`/services/${service.title}?id=${service._id}`}
           />
           ))}
           

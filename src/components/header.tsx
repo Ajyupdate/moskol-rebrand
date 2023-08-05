@@ -20,20 +20,40 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Link,
   
 } from '@chakra-ui/react'
 import Image from 'next/image'
  import MoskolLogo from '../public/moskolWebLogo.png'
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons'
-
+import { useRouter } from 'next/navigation'
 interface Props {
   children: React.ReactNode
+  href: string
 }
 
-const Links = ['About', 'Our Service', 'Contact Us']
+const Links = [
+  {
+    id: 1,
+    name: 'About',
+    href:'/about'
+
+  }, 
+  {
+    id:2,
+    name: 'Our Service',
+    href:'/services'
+  }, 
+  {
+    id: 3,
+    name: 'Contact Us',
+    href: '/contact'
+  }
+]
 
 const NavLink = (props: Props) => {
-  const { children } = props
+
+  const { children, href } = props
   return (
     <Box
       as="a"
@@ -44,7 +64,8 @@ const NavLink = (props: Props) => {
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
-      href={'#'}>
+       href={href}
+      >
       {children}
     </Box>
   )
@@ -52,7 +73,7 @@ const NavLink = (props: Props) => {
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const router = useRouter()
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -70,7 +91,12 @@ export default function Header() {
             </Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+               
+                
+                  <NavLink href={link.href} key={link.id}>{link.name}</NavLink>
+               
+               
+               
               ))}
             </HStack>
           </HStack>
@@ -78,7 +104,7 @@ export default function Header() {
            
            
             <button className="px-2 mr-4 py-1 text-white bg-teal-500 rounded-md shadow-sm hover:bg-teal-600 focus:ring-teal-400 focus:ring-offset-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
-            {<AddIcon />}
+            
               Buy Our products
             </button>
 
@@ -110,7 +136,7 @@ export default function Header() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink href={link.href} key={link.id}>{link.name}</NavLink>
               ))}
             </Stack>
           </Box>
