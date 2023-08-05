@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div><Header/>
     {/* <Carousel/> */}
-    <Service/>
+    <Service queryNumber={5}/>
     <WhoWeAre/>
     <CoreValues/>
     <Reviews/>
