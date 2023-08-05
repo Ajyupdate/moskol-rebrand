@@ -9,10 +9,11 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { ReactNode } from 'react'
 import MoskolLogo from '../../../public/moskolWebLogo.png'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Logo = (props: any) => {
   return (
@@ -63,18 +64,20 @@ export default function Footer() {
         spacing={4}
         justify={'center'}
         align={'center'}>
-        <Logo />
+          <Link href={'/'}>
+            <Logo />
+          </Link>
         <Stack direction={'row'} spacing={6}>
-          <Box as="a" href={'#'}>
+          <Box as="a" href={'/'}>
             Home
           </Box>
-          <Box as="a" href={'#'}>
+          <Box as="a" href={'/about'}>
             About
           </Box>
-          <Box as="a" href={'#'}>
+          <Box as="a" href={'/services'}>
             Service
           </Box>
-          <Box as="a" href={'#'}>
+          <Box as="a" href={'/buy'}>
             Buy Our Products
           </Box>
         </Stack>
@@ -98,10 +101,10 @@ export default function Footer() {
               <FaTwitter />
             </SocialButton>
             <SocialButton label={'YouTube'} href={'#'}>
-              <FaYoutube />
+              <FaInstagram />
             </SocialButton>
             <SocialButton label={'Instagram'} href={'#'}>
-              <FaInstagram />
+              <FaLinkedin />
             </SocialButton>
           </Stack>
         </Container>
