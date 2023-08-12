@@ -26,3 +26,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+/* In your CSS file or inline styles */
+.bg-custom-orange {
+  background-color: rgb(253, 93, 0);
+}

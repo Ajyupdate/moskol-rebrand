@@ -207,7 +207,8 @@ import React from 'react'
 import { Box, Heading, Text, Stack, Image, Button, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import { CardProps } from '../landing/components/Service';
 import { useSearchParams } from 'next/navigation';
-import { features } from 'process';
+import { useParams } from 'next/navigation'
+
 
 
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
@@ -215,12 +216,12 @@ const SolarInstallationPage = () => {
 
     const [data, setData] = React.useState<CardProps>()
 
-        const searchParams = useSearchParams();
-    const serviceQuery = searchParams.get('id')
+    const params = useParams()
+   
 
     React.useEffect(() => {
         if (API_ENDPOINT) {
-        fetch(`${API_ENDPOINT}/services/${serviceQuery}`)
+        fetch(`${API_ENDPOINT}/services/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
