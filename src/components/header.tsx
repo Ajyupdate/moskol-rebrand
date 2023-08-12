@@ -89,7 +89,7 @@ export default function Header() {
           <HStack spacing={8} alignItems={'center'}>
             <Box  >
               <Link href={'/'}>
-            <Image src={MoskolLogo} className="w-40" alt="" /></Link>
+            <Image src={MoskolLogo} className="w-20 md:w-40 " alt="" /></Link>
             </Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
@@ -105,7 +105,7 @@ export default function Header() {
           <Flex alignItems={'center'}>
            
            
-            <button className="px-2 mr-4 py-1 text-white bg-teal-500 rounded-md shadow-sm hover:bg-teal-600 focus:ring-teal-400 focus:ring-offset-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
+            <button className="px-2 mr-1 md:mr-4 md:py-1 text-white bg-custom-orange rounded-md shadow-sm hover:bg-orange-800 focus:ring-teal-400 focus:ring-offset-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
             
               Buy Our products
             </button>

@@ -120,7 +120,7 @@ React.useEffect(() => {
             heading={service.title}
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             description={`${service.description.substring(0,70)}...`}
-            href={`/services/${service.title}?id=${service._id}`}
+            href={`/services/${service._id}`}
           />
           ))}
           
