@@ -41,9 +41,9 @@ useEffect(() => {
         Buy Solar Energy and CCTV Products
       </Heading>
 
-      <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={8}>
+      <Grid maxW={'5xl'} templateColumns={{md:"repeat(auto-fill, minmax(300px, 1fr))", base: 'column' }}gap={8}>
         {products.map((product) => (
-          <Link href={`buy/${product.name}?id=${product._id}`} key={product._id}>
+          <Link href={`buy/${product._id}`} key={product._id}>
           <Box
            
             
