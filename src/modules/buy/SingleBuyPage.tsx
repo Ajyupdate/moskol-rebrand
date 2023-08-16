@@ -18,32 +18,61 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react'
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MdLocalShipping } from 'react-icons/md'
 import { IproductsProps } from './Views';
+import { useParams } from 'next/navigation';
+import axios from 'axios';
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export default function SingleBuyPage() {
 
     const [product, setProduct] = useState<IproductsProps>()
-
-    const searchParams = useSearchParams();
-    const serviceQuery = searchParams.get('id')
+    const [isAdmin, setIsAdmin] = useState(false)
+    const router = useRouter()
+    const params = useParams()
 
    useEffect(() => {
-    console.log(serviceQuery)
-        if (API_ENDPOINT) {
-        fetch(`${API_ENDPOINT}/products/${serviceQuery}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            setProduct(data)}
-        )
-        .catch((error) => console.log('error:', error))
+    
+    if (API_ENDPOINT) {
+    fetch(`${API_ENDPOINT}/products/${params.id}`)
+    .then((res) => res.json())
+    .then((data) => {
        
-        } 
-      }, [])
+        setProduct(data)}
+    )
+    .catch((error) => console.log('error:', error))
+    
+    } 
+  }, [])
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const jwt = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1");
+
+        
+        const response = await axios.get(`${API_ENDPOINT}/admin/verify-token`, {
+          headers: {
+            Authorization: `Bearer ${jwt}` 
+          }
+        });
+
+        if (response.status === 201) {
+        setIsAdmin(true)
+        console.log(isAdmin)
+        }
+      } catch (error) {
+        console.error('Error checking tokenn:', error);
+       
+      }
+    };
+
+    checkToken();
+  })
+
+
   return (
     <Container maxW={'7xl'}>
       <SimpleGrid
@@ -130,11 +159,30 @@ export default function SingleBuyPage() {
             </Box>
           </Stack>
 
-          <button
-            className="rounded-none w-full mt-8 py-7 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
-          >
-          Add to cart
-        </button>
+          <Stack>
+            <button
+              className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+            >
+            Buy Now
+          </button>
+          
+          {isAdmin &&
+          <Stack>
+            <button
+              onClick={() =>router.push(`/buy/${product?._id}/edit`)}
+                className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-green-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+              >
+              Edit
+            </button>
+
+            <button
+                className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-red-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+              >
+              Delete
+            </button>
+          </Stack>
+          }
+          </Stack>
 
 
           <Stack direction="row" alignItems="center" justifyContent={'center'}>
