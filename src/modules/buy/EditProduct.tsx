@@ -72,15 +72,16 @@ export default function UserProfileEdit() {
     imageUrl: 'https://bit.ly/sage-adebayo', // Default image URL
   }
 
+  
  async function handleSubmit(values:iProductPatchProps){
   
 
     try {
-      const response = await axios.patch(`${API_ENDPOINT}/admin/${params.id}`, values);
+      const response = await axios.patch(`${API_ENDPOINT}/products/${params.id}`, values);
       console.log(response.data); // Updated product data
       setIsSubmitted(true)
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error('Error fetching product:', error);
       setErrorMessage(true)
     }
   }
@@ -138,7 +139,7 @@ export default function UserProfileEdit() {
                 User Profile Edit
               </Heading>
               <FormControl id="name" >
-                <FormLabel>User Icon</FormLabel>
+                <FormLabel>Userr Icon</FormLabel>
                 <Stack direction={['column', 'row']} spacing={6}>
                   <Center>
                     <Avatar size="xl" src="https://bit.ly/sage-adebayo">

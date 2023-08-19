@@ -128,6 +128,7 @@ export default function Header() {
               <MenuList>
                 <MenuItem><Link href={`/auth/sign-in?query=admin`}>Log in as admin</Link></MenuItem>
                 <MenuItem><Link href={'/auth/sign-in'}>Log in as client</Link></MenuItem>
+                <MenuItem><Link href={'/buy/add'}>Add Product</Link></MenuItem>
                 <MenuDivider />
                 <MenuItem>Logout</MenuItem>
               </MenuList>

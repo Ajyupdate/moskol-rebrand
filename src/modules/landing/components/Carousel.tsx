@@ -1,16 +1,15 @@
- 
+
+
 
 'use client'
-import Carousel1 from '../../../public/carousels/Carousel1.jpg'
-import Carousel2 from '../../../public/carousels/Carousel2.jpg'
+
 import React from 'react'
-import { Box, IconButton,  useBreakpointValue } from '@chakra-ui/react'
+import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react'
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 // And react-slick as our Carousel Lib
 import Slider from 'react-slick'
-import Image from 'next/image'
-
+const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 // Settings for the slider
 const settings = {
   dots: true,
@@ -34,17 +33,20 @@ export default function Carousel() {
   const top = useBreakpointValue({ base: '90%', md: '50%' })
   const side = useBreakpointValue({ base: '30%', md: '10px' })
 
+ 
+  const Carousel1 = `${API_ENDPOINT}/products/uploads/c5bf868a-a88b-49c7-97d3-9e33f128612a`
+  const Carousel2 = `${API_ENDPOINT}/products/uploads/a05a96e6-7069-42ca-9910-958a969ee9b3`
+  const Carousel3 = `${API_ENDPOINT}/products/uploads/80287a9d-c148-4930-9971-a706e2a6d445`
   // These are the images used in the slide
   const cards = [
-    // './boxForm.png',
-   Carousel1,
-   Carousel2
-    // 'https://images.unsplash.com/photo-1627875764093-315831ac12f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-    // 'https://images.unsplash.com/photo-1571432248690-7fd6980a1ae2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+    
+    
+    Carousel1,
+    Carousel2,
+    Carousel3,
   ]
 
   return (
-    <Box>
     <Box position={'relative'} height={'600px'} width={'full'} overflow={'hidden'}>
       {/* CSS files for react-slick */}
       <link
@@ -88,34 +90,15 @@ export default function Carousel() {
         {cards.map((url, index) => (
           <Box
             key={index}
-            height={'6xl'}
-            // position="relative"
-            // backgroundPosition="center"
-            // backgroundRepeat="no-repeat"
-            // backgroundSize="cover"
-            // background={`url(${url})`}
-          >
-            <Image src={url} alt="Image" layout="fill" objectFit="cover" />
-          </Box>
+            height={'xl'}
+             position="relative"
+             backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+             backgroundSize="cover"
+            backgroundImage={`url(${url})`}
+          />
         ))}
       </Slider>
     </Box>
-
-    {/* <Box
-            
-            height={'6xl'}
-            position="relative"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            backgroundImage= "url('boxForm.png')"
-            
-          /> */}
-          {/* <Image src={Carousel1}/> */}
-
-         
-    </Box>
-
-  
   )
 }

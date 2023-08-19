@@ -3,7 +3,7 @@
 
 export interface IproductsProps 
   {
-    _id:           string;
+    _id:           string ;
     name:          string;
     description:   string;
     unitAvailable: number;
