@@ -1,9 +1,9 @@
 
 
 'use client'
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const PrivateRoute = ({ children }:{children: React.ReactNode}) => {
@@ -31,7 +31,7 @@ const PrivateRoute = ({ children }:{children: React.ReactNode}) => {
           router.push('/auth/sign-in');
         }
       } catch (error) {
-        console.error('Error checking tokenn:', error);
+        console.error('Error checking token:', error);
         router.push('/auth/sign-in');
       }
     };
