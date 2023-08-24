@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from 'react';
 import {
-  Formik,
-  Form,
-  Field,
-  FieldProps,
-} from 'formik';
-import {
-  Button,
-  Flex,
+  Alert,
+  AlertIcon, CloseButton, Flex,
   FormControl,
   FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useColorModeValue,
-  HStack,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
-  Textarea,
-  Alert,
-  AlertIcon,
-  CloseButton,
+  Heading, Input,
+  Stack, Textarea
 } from '@chakra-ui/react';
-import { SmallCloseIcon } from '@chakra-ui/icons';
-import { useParams } from 'next/navigation';
-import { IproductsProps } from './Views';
 import axios from 'axios';
+import {
+  Field,
+  FieldProps, Form, Formik
+} from 'formik';
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 
@@ -37,7 +22,7 @@ export interface iProductPatchProps {
   description:   string | undefined;
   unitAvailable: number | undefined;
   price:         number | undefined;
-  imageUrl:      string | undefined;
+  // imageUrl:      string | undefined;
   features:      string[] | undefined;
 }
 
@@ -69,7 +54,7 @@ export default function UserProfileEdit() {
     price:product?.price,
     
     features: product?.features,
-    imageUrl: 'https://bit.ly/sage-adebayo', // Default image URL
+    // imageUrl: product?.imageUrl, // Default image URL
   }
 
   
@@ -136,9 +121,9 @@ export default function UserProfileEdit() {
                 </Alert>
               )}
               <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
-                User Profile Edit
+              Edit {initialValues.name}
               </Heading>
-              <FormControl id="name" >
+              {/* <FormControl id="name" >
                 <FormLabel>Userr Icon</FormLabel>
                 <Stack direction={['column', 'row']} spacing={6}>
                   <Center>
@@ -158,7 +143,7 @@ export default function UserProfileEdit() {
                     <button className='bg-gray-300 py-2 px-2 md:w-full'>Change Icon</button>
                  </Center>
                 </Stack>
-              </FormControl>
+              </FormControl> */}
               <FormControl id="name"  >
                 <FormLabel>Name</FormLabel>
                 <Field name="name">
@@ -216,7 +201,7 @@ export default function UserProfileEdit() {
                 </Field>
               </FormControl>
 
-              <FormControl id="imageUrl" >
+              {/* <FormControl id="imageUrl" >
                 <FormLabel>imageUrl </FormLabel>
                 <Field name="imageUrl">
                   {({ field }:FieldProps) => (
@@ -228,7 +213,7 @@ export default function UserProfileEdit() {
                     />
                   )}
                 </Field>
-              </FormControl>
+              </FormControl> */}
 
               <FormControl id="features" >
                 <FormLabel>features (seperated by comma)</FormLabel>
