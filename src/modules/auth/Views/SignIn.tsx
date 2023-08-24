@@ -29,7 +29,7 @@ const validationSchema = yup.object().shape({
 
       
         router.back()
-        router.back()
+       
       
       
     
@@ -48,7 +48,7 @@ const validationSchema = yup.object().shape({
       justify={'center'}
       // bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack spacing={8} mx={'auto'} w={{md:'40%', base: 'unset'}} py={12} px={6}>
         <Stack align={'center'}>
            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
            <Text fontSize={'lg'} color={'gray.600'}>
@@ -60,16 +60,16 @@ const validationSchema = yup.object().shape({
         <Formik initialValues={{ username: '', password: '' }} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ isSubmitting,  }) => (
           <Form>
-            <Box marginBottom="2">
-              <Text>Email</Text>
-              <Field as={Input} type="text" name="username" />
-              <Box mt={2} color="red.500" fontSize="sm">
-                <ErrorMessage name="username" />
-              </Box>
+            <Box marginBottom="2" >
+              <Heading mb={2} fontWeight={'medium'} fontSize={'md'}>Email</Heading>
+                <Field variant={'filled'} as={Input} type="text" name="username" />
+                <Box mt={2} color="red.500" fontSize="sm">
+                  <ErrorMessage name="username" />
+                </Box>
             </Box>
             <Box marginBottom="2">
-              <Text>Password</Text>
-              <Field as={Input} type="password" name="password" />
+              <Heading mt={4} mb={2} fontWeight={'medium'} fontSize={'md'}>Password</Heading>
+              <Field variant={'filled'} as={Input} type="password" name="password" />
               <Box mt={2} color="red.500" fontSize="sm">
                 <ErrorMessage name="password" />
               </Box>
@@ -77,7 +77,7 @@ const validationSchema = yup.object().shape({
             </Box>
             <button
               type="submit"
-              className={`bg-blue-900 w-full hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded ${
+              className={`mt-4 bg-custom-orange w-full hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded ${
                 isSubmitting ? 'opacity-75 cursor-not-allowed' : 'opacity-100 cursor-pointer'
               }`}
               disabled={isSubmitting}
@@ -90,7 +90,7 @@ const validationSchema = yup.object().shape({
                 <Link
                   fontWeight={'bold'}
                   href="../auth/sign-up"
-                  color={'blue.500'}
+                  color={'orange.500'}
                 >
                   Sign up
                 </Link>
@@ -104,7 +104,7 @@ const validationSchema = yup.object().shape({
                 <Link
                   fontWeight={'bold'}
                   href="../auth/sign-in?query=admin"
-                  color={'blue.500'}
+                  color={'orange.500'}
                 >
                   Admin
                 </Link>

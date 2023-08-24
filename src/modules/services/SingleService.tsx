@@ -221,7 +221,7 @@ const SolarInstallationPage = () => {
 
     React.useEffect(() => {
         if (API_ENDPOINT) {
-        fetch(`${API_ENDPOINT}/services/${params.id}`)
+        fetch(`${API_ENDPOINT}/service/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)

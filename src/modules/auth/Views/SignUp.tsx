@@ -67,69 +67,71 @@ export default function SignUpForm() {
           }
     }  
   return (
-    <div>
+    <div className='border '>
         
-    <Flex
+    <Flex 
+      
       minH={{md:'100vh'}}
       align={'center'}
       justify={'center'}
+     
       // bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack   spacing={8}  w={{md:'40%', base: '100%'}}  py={12} px={6}>
         <Stack align={'center'}>
-           <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+           <Heading fontSize={'4xl'}>Sign Up</Heading>
            <Text fontSize={'lg'} color={'gray.600'}>
              to get further access  ✌️
            </Text>
         </Stack>
 
         {isSubmitted && (
-              <Alert status="success" mt={4} borderRadius="md">
-                <AlertIcon />
-                Client Account Created successfully successfully!
-                <CloseButton
-                  position="absolute"
-                  right="8px"
-                  top="8px"
-                  onClick={() => setIsSubmitted(false)}
-                />
-              </Alert>
-            )}
+          <Alert status="success" mt={4} borderRadius="md">
+            <AlertIcon />
+            Client Account Created successfully successfully!
+            <CloseButton
+              position="absolute"
+              right="8px"
+              top="8px"
+              onClick={() => setIsSubmitted(false)}
+            />
+          </Alert>
+        )}
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ isSubmitting,  }) => (
           <Form>
-            <Box marginBottom="2">
-              <Text>Email</Text>
-              <Field as={Input} type="text" name="username" />
-              <Box mt={2} color="red.500" fontSize="sm">
-                <ErrorMessage name="username" />
-              </Box>
+            <Box marginBottom="2"  >
+              <Heading fontWeight={'medium'} mb={2} mt={4} fontSize={'md'}>Email</Heading>
+                <Field variant={'filled'} as={Input} type="text" name="username" />
+                <Box mt={2} color="red.500" fontSize="sm">
+                  <ErrorMessage name="username" />
+                </Box>
             </Box>
             <Box marginBottom="2">
-              <Text>Phone Number</Text>
-              <Field as={Input} type="text" name="phoneNumber" />
+            <Heading fontWeight={'medium'} mb={2} mt={4} fontSize={'md'}>Phone Number</Heading>
+              <Field variant={'filled'} as={Input} type="text" name="phoneNumber" />
               <Box mt={2} color="red.500" fontSize="sm">
                 <ErrorMessage name="phoneNumber" />
               </Box>
             </Box>
             <Box marginBottom="2">
-              <Text>Ocuupation</Text>
-              <Field as={Input} type="text" name="occupation" />
+            <Heading fontWeight={'medium'} mb={2} mt={4} fontSize={'md'}>Occupation</Heading>
+              <Field variant={'filled'} as={Input} type="text" name="occupation" />
               <Box mt={2} color="red.500" fontSize="sm">
                 <ErrorMessage name="occupation" />
               </Box>
             </Box>
             <Box marginBottom="2">
-              <Text>Password</Text>
-              <Field as={Input} type="password" name="password" />
+            <Heading fontWeight={'medium'} mb={2} mt={4} fontSize={'md'}>Password</Heading>
+              <Field variant={'filled'} as={Input} type="password" name="password" />
               <Box mt={2} color="red.500" fontSize="sm">
                 <ErrorMessage name="password" />
               </Box>
               
             </Box>
             <Box marginBottom="2">
-              <Text>Confirm Password</Text>
-              <Field as={Input} type="confirmPassword" name="confirmPassword" />
+            <Heading fontWeight={'medium'} mb={2} mt={4} fontSize={'md'}>Confirm Password</Heading>
+              <Field variant={'filled'} as={Input} type="confirmPassword" name="confirmPassword" />
               <Box mt={2} color="red.500" fontSize="sm">
                 <ErrorMessage name="confirmPassword" />
               </Box>
@@ -137,7 +139,7 @@ export default function SignUpForm() {
             </Box>
             <button
               type="submit"
-              className={`bg-blue-900 w-full hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded ${
+              className={`mt-4 bg-custom-orange w-full hover:bg-orange text-white font-semibold py-2 px-4 rounded ${
                 isSubmitting ? 'opacity-75 cursor-not-allowed' : 'opacity-100 cursor-pointer'
               }`}
             //   disabled={isSubmitting}
@@ -150,7 +152,7 @@ export default function SignUpForm() {
                 <Link
                 //   fontWeight={'bold'}
                   href="../auth/sign-in"
-                  color={'blue.500'}
+                  color={'orange.500'}
                 >
                   Sign in
                 </Link>

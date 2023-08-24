@@ -8,9 +8,9 @@ export default function ServicePage() {
   return (
     <div>
      
-     <PrivateRouteForClient>
+     {/* <PrivateRouteForClient> */}
       <Services/>
-     </PrivateRouteForClient>
+     {/* </PrivateRouteForClient> */}
       
       
       </div>
