@@ -38,6 +38,7 @@ export default function Carousel() {
 
   return (
     <Box
+      display={{ md: "block", base: "none" }}
       position={"relative"}
       height={"600px"}
       width={"full"}
@@ -84,12 +85,13 @@ export default function Carousel() {
         {cards.map((url, index) => (
           <Box
             key={index}
-            height={"xl"}
+            height={{ md: "xl", base: "100vh" }}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${url})`}
+            width={"full"}
           />
         ))}
       </Slider>

@@ -39,8 +39,10 @@ const SolarInstallationPage = () => {
       <Text>{data?.description}</Text>
 
       <Image
-        src="https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080"
-        alt="Solar Panel Installation"
+        src={`${
+          data?.imageUrl ? `${API_ENDPOINT}/products/${data?.imageUrl}` : ""
+        }`}
+        alt={data?.title}
         mt={6}
         borderRadius="lg"
         boxShadow="lg"
@@ -116,8 +118,7 @@ const Feature = ({ title, description }: CardProps) => {
       bg="white"
       flex="1"
       minW={{ base: "100%", md: "25%" }}
-      mb={{ base: 4, md: 0 }}
-    >
+      mb={{ base: 4, md: 0 }}>
       <Heading size="md" mb={2}>
         {title}
       </Heading>
@@ -135,8 +136,7 @@ const Benefit = ({ title, description }: CardProps) => {
       boxShadow="sm"
       flex="1"
       minW={{ base: "100%", md: "25%" }}
-      mb={{ base: 4, md: 0 }}
-    >
+      mb={{ base: 4, md: 0 }}>
       <Heading size="md" mb={2}>
         {title}
       </Heading>

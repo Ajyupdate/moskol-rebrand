@@ -13,7 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { FcCallback } from "react-icons/fc";
+import { IconType } from "react-icons/lib";
 import { Url } from "url";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -21,7 +21,7 @@ export interface CardProps {
   _id?: string;
   description: string;
   imageUrl?: string;
-  href?: string | Url;
+  href?: string | Url | IconType;
   heading?: string;
   title?: string;
   features?: Benefit[];
@@ -31,8 +31,25 @@ export interface Benefit {
   title: string;
   description: string;
 }
+export interface IServiceQueryProps {
+  queryNumber: number;
+}
 
-const Card = ({ heading, description, imageUrl, href }: CardProps) => {
+export interface IServiceProps {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  href: string;
+}
+
+export interface ICardprops {
+  heading: string;
+  imageUrl: string;
+  description: string;
+  href: string;
+}
+const Card = ({ heading, description, imageUrl, href }: ICardprops) => {
   return (
     <Box
       maxW={{ base: "full", md: "275px" }}
@@ -40,11 +57,11 @@ const Card = ({ heading, description, imageUrl, href }: CardProps) => {
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden">
-      <Link href={href || FcCallback}>
-        <Stack p={4} spacing={2} align={{ base: "center", md: "center" }}>
+      <Link href={href}>
+        <Stack p={4} spacing={2}>
           <Flex
             w={"100%"}
-            h={"100%"}
+            h={"90%"}
             align={"center"}
             justify={"center"}
             color={"white"}>
@@ -56,7 +73,11 @@ const Card = ({ heading, description, imageUrl, href }: CardProps) => {
             />
           </Flex>
           <Box mt={2}>
-            <Heading size="md">{heading}</Heading>
+            <Heading
+              fontSize={{ md: "18" }}
+              fontWeight={{ md: "semibold", base: "medium" }}>
+              {heading}
+            </Heading>
             <Text mt={1} fontSize={"sm"}>
               {description}
             </Text>
@@ -70,12 +91,8 @@ const Card = ({ heading, description, imageUrl, href }: CardProps) => {
   );
 };
 
-export interface IServiceProps {
-  queryNumber: number;
-}
-
-export default function Service({ queryNumber }: IServiceProps) {
-  const [data, setData] = useState<CardProps[]>([]);
+export default function Service({ queryNumber }: IServiceQueryProps) {
+  const [data, setData] = useState<IServiceProps[]>([]);
 
   React.useEffect(() => {
     if (API_ENDPOINT) {
@@ -103,12 +120,15 @@ export default function Service({ queryNumber }: IServiceProps) {
 
       <Container maxW={"5xl"} mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
-          {data.map((service) => (
+          {data?.map((service) => (
             <Card
               key={service._id}
               heading={service.title}
               imageUrl={service.imageUrl}
-              description={`${service.description.substring(0, 70)}...`}
+              description={`${service.description
+                .split(" ")
+                .slice(0, 10)
+                .join(" ")}...`}
               href={`/services/${service._id}`}
             />
           ))}

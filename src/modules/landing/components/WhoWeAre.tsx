@@ -5,7 +5,6 @@ import {
   Container,
   Flex,
   Heading,
-  Icon,
   Image,
   SimpleGrid,
   Stack,
@@ -14,21 +13,15 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 // import Image from "next/image";
-import { ReactElement } from "react";
-import {
-  IoAnalyticsSharp,
-  IoLogoBitcoin,
-  IoSearchSharp,
-} from "react-icons/io5";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 interface FeatureProps {
   text: string;
-  iconBg: string;
-  icon?: ReactElement;
+  // iconBg: string;
+  // icon?: ReactElement;
 }
 
-const Feature = ({ text, icon, iconBg }: FeatureProps) => {
+const Feature = ({ text }: FeatureProps) => {
   return (
     <Stack direction={"row"} align={"center"}>
       <Flex
@@ -37,9 +30,9 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
         align={"center"}
         justify={"center"}
         rounded={"full"}
-        bg={iconBg}
+        // bg={iconBg}
       >
-        {icon}
+        {/* {icon} */}
       </Flex>
       <Text fontWeight={600}>{text}</Text>
     </Stack>
@@ -62,11 +55,12 @@ export default function WhoWeAre() {
             bg={useColorModeValue("blue.50", "blue.900")}
             p={2}
             alignSelf={"flex-start"}
-            rounded={"md"}
-          >
+            rounded={"md"}>
             Our Story
           </Text>
-          <Heading>An energy and high security company</Heading>
+          <Heading fontSize={{ base: "xl", sm: "4xl" }} fontWeight={"semibold"}>
+            An energy and high security company
+          </Heading>
           <Text color={"gray.500"} fontSize={"lg"}>
             your trusted partner in sustainable energy solutions and advanced
             security technologies
@@ -77,25 +71,24 @@ export default function WhoWeAre() {
               <StackDivider
                 borderColor={useColorModeValue("gray.100", "gray.700")}
               />
-            }
-          >
+            }>
             <Feature
-              icon={
-                <Icon as={IoAnalyticsSharp} color={"yellow.500"} w={5} h={5} />
-              }
-              iconBg={useColorModeValue("yellow.100", "yellow.900")}
+              // icon={
+              //   <Icon as={IoAnalyticsSharp} color={"yellow.500"} w={5} h={5} />
+              // }
+              // iconBg={useColorModeValue("yellow.100", "yellow.900")}
               text={"Quality and Authencity"}
             />
             <Feature
-              icon={<Icon as={IoLogoBitcoin} color={"green.500"} w={5} h={5} />}
-              iconBg={useColorModeValue("green.100", "green.900")}
+              // icon={<Icon as={IoLogoBitcoin} color={"green.500"} w={5} h={5} />}
+              // iconBg={useColorModeValue("green.100", "green.900")}
               text={"Expertise and Reliability"}
             />
             <Feature
-              icon={
-                <Icon as={IoSearchSharp} color={"purple.500"} w={5} h={5} />
-              }
-              iconBg={useColorModeValue("purple.100", "purple.900")}
+              // icon={
+              //   <Icon as={IoSearchSharp} color={"purple.500"} w={5} h={5} />
+              // }
+              // iconBg={useColorModeValue("purple.100", "purple.900")}
               text={"Customer-Centric Approach"}
             />
           </Stack>
