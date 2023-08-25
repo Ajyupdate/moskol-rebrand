@@ -5,7 +5,7 @@ const nextConfig = {};
 // next.config.js
 module.exports = {
   images: {
-    domains: ["tecdn.b-cdn.net", "localhost"],
+    domains: ["tecdn.b-cdn.net"],
   },
   nextConfig,
 };
