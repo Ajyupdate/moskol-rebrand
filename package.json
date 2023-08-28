@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.0",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
@@ -19,6 +22,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "formik": "^2.4.3",
+    "framer-motion": "^10.16.1",
     "next": "13.4.12",
     "postcss": "8.4.27",
     "react": "18.2.0",
