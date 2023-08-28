@@ -52,7 +52,7 @@ const BuyPage = () => {
                 }`}
                 alt={product.name}
                 h="40"
-                w={80}
+                w={{ base: "100%", md: "100%", lg: "100%" }} // Responsive width
                 mb={4}
               />
 
