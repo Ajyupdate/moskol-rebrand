@@ -104,19 +104,16 @@ function TestimonialCard(props: TestimonialCardProps) {
         top: 0,
         left: 0,
         backgroundImage: backgrounds[index % 4],
-      }}
-    >
+      }}>
       <Flex
         direction={"column"}
         textAlign={"left"}
-        justifyContent={"space-between"}
-      >
+        justifyContent={"space-between"}>
         <chakra.p
           fontFamily={"Inter"}
           fontWeight={"medium"}
           fontSize={"15px"}
-          pb={4}
-        >
+          pb={4}>
           {content}
         </chakra.p>
         <chakra.p fontFamily={"Work Sans"} fontWeight={"bold"} fontSize={14}>
@@ -124,8 +121,7 @@ function TestimonialCard(props: TestimonialCardProps) {
           <chakra.span
             fontFamily={"Inter"}
             fontWeight={"medium"}
-            color={"gray.500"}
-          >
+            color={"gray.500"}>
             {" "}
             - {role}
           </chakra.span>
@@ -147,12 +143,18 @@ export default function Reviews() {
 
   React.useEffect(() => {
     if (API_ENDPOINT) {
-      fetch(`${API_ENDPOINT}/reviews`)
+      fetch(`${API_ENDPOINT}/reviews`, {
+        // method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
         .then((res) => res.json())
         .then((data) => setReviews(data))
         .catch((error) => console.log("error", error));
     }
-  });
+  }, []);
 
   return (
     <Flex
@@ -161,16 +163,14 @@ export default function Reviews() {
       justifyContent={"center"}
       direction={"column"}
       //   width={'full'}
-      overflow={"hidden"}
-    >
+      overflow={"hidden"}>
       <Box width={{ base: "full", sm: "lg", lg: "xl" }} margin={"auto"}>
         <chakra.h3
           fontFamily={"Work Sans"}
           fontWeight={"bold"}
           fontSize={20}
           textTransform={"uppercase"}
-          color={"purple.400"}
-        >
+          color={"purple.400"}>
           People love us
         </chakra.h3>
         <chakra.h1
@@ -178,8 +178,7 @@ export default function Reviews() {
           fontSize={48}
           fontFamily={"Work Sans"}
           fontWeight={"bold"}
-          color={useColorModeValue("gray.700", "gray.50")}
-        >
+          color={useColorModeValue("gray.700", "gray.50")}>
           You&apos;re in good company
         </chakra.h1>
         <chakra.h2
@@ -187,8 +186,7 @@ export default function Reviews() {
           width={"70%"}
           fontFamily={"Inter"}
           fontWeight={"medium"}
-          color={useColorModeValue("gray.500", "gray.400")}
-        >
+          color={useColorModeValue("gray.500", "gray.400")}>
           See why over a lot of institutions and companies partner with us for
           their energy and security work
         </chakra.h2>
@@ -198,8 +196,7 @@ export default function Reviews() {
         spacing={6}
         columns={{ base: 1, xl: 2 }}
         mt={16}
-        mb={16}
-      >
+        mb={16}>
         {Reviews &&
           Reviews.map((cardInfo, index) => (
             // <TestimonialCard key={index} {...cardInfo} index={index} />
@@ -213,32 +210,27 @@ export default function Reviews() {
               rounded={"xl"}
               p={{ md: 10, base: "10" }}
               justifyContent={"space-between"}
-              position={"relative"}
-            >
+              position={"relative"}>
               <Flex
                 direction={"column"}
                 textAlign={"left"}
-                justifyContent={"space-between"}
-              >
+                justifyContent={"space-between"}>
                 <chakra.p
                   bg={"white"}
                   fontWeight={"medium"}
                   fontSize={"15px"}
-                  pb={4}
-                >
+                  pb={4}>
                   {cardInfo.comment}
                 </chakra.p>
                 <chakra.p
                   fontFamily={"Work Sans"}
                   fontWeight={"bold"}
-                  fontSize={14}
-                >
+                  fontSize={14}>
                   {cardInfo.name}
                   <chakra.span
                     fontFamily={"Inter"}
                     fontWeight={"medium"}
-                    color={"gray.500"}
-                  >
+                    color={"gray.500"}>
                     {" "}
                     - {cardInfo.occupation}
                   </chakra.span>

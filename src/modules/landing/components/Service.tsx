@@ -120,18 +120,19 @@ export default function Service({ queryNumber }: IServiceQueryProps) {
 
       <Container maxW={"5xl"} mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
-          {data?.map((service) => (
-            <Card
-              key={service._id}
-              heading={service.title}
-              imageUrl={service.imageUrl}
-              description={`${service.description
-                .split(" ")
-                .slice(0, 10)
-                .join(" ")}...`}
-              href={`/services/${service._id}`}
-            />
-          ))}
+          {data &&
+            data?.map((service) => (
+              <Card
+                key={service._id}
+                heading={service.title}
+                imageUrl={service.imageUrl}
+                description={`${service.description
+                  .split(" ")
+                  .slice(0, 10)
+                  .join(" ")}...`}
+                href={`/services/${service._id}`}
+              />
+            ))}
         </Flex>
       </Container>
     </Box>
