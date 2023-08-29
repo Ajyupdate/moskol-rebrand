@@ -93,7 +93,7 @@ const NewProductForm: React.FC = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
           {({ values, errors, setFieldValue }) => (
-            <Form>
+            <Form encType="multipart/form-data" name="image">
               <Stack gap={4}>
                 <FormControl isInvalid={!!errors.title} mt={4}>
                   <FormLabel htmlFor="title">
@@ -276,7 +276,7 @@ const NewProductForm: React.FC = () => {
                       <div
                         {...getRootProps()}
                         style={{ padding: "10px", border: "1px dashed" }}>
-                        <input {...getInputProps()} />
+                        <input {...getInputProps()} name="image" />
                         <p>Drag n drop an image here, or click to select one</p>
                         {values.image && values.image[0] && (
                           <Image

@@ -126,10 +126,7 @@ export default function Service({ queryNumber }: IServiceQueryProps) {
                 key={service._id}
                 heading={service.title}
                 imageUrl={service.imageUrl}
-                description={`${service.description
-                  .split(" ")
-                  .slice(0, 10)
-                  .join(" ")}...`}
+                description={`${service.description}...`}
                 href={`/services/${service._id}`}
               />
             ))}
