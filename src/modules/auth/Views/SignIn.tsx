@@ -5,16 +5,20 @@ import {
   Heading,
   Input,
   Link,
+  Spinner,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as yup from "yup";
+
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const LoginForm = () => {
   const router = useRouter();
+  const toast = useToast();
 
   const queryParams = useSearchParams();
   const params = queryParams.get("query");
@@ -32,7 +36,7 @@ const LoginForm = () => {
         `${API_ENDPOINT}/${!params ? "client" : params}/login`,
         values
       );
-      console.log(response);
+
       const { token } = response.data;
 
       // Store the token in a cookie
@@ -40,9 +44,23 @@ const LoginForm = () => {
 
       // Redirect to a protected page or perform other actions
 
+      toast({
+        title: "Success.",
+        description: "Login Successful",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
       router.push("/buy");
     } catch (error) {
       setErrors({ password: "Invalid credentials" });
+      toast({
+        title: "Error.",
+        description: "Invalid credentials",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
 
     setSubmitting(false);
@@ -117,7 +135,7 @@ const LoginForm = () => {
                     : "opacity-100 cursor-pointer"
                 }`}
                 disabled={isSubmitting}>
-                Login
+                {isSubmitting ? <Spinner /> : "Login"}
               </button>
               <Stack>
                 <Text align={"center"}>

@@ -1,13 +1,12 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
-  CloseButton,
   Flex,
   Heading,
   Input,
+  Spinner,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -28,6 +27,7 @@ export interface iInitialValuesProps {
 export default function SignUpForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const router = useRouter();
+  const toast = useToast();
   const queryParams = useSearchParams();
   const params = queryParams.get("query");
   // let endpointQuery = ""
@@ -63,23 +63,36 @@ export default function SignUpForm() {
     const { confirmPassword, ...data } = values;
     console.log(data);
 
-    try {
-      const response = await axios.post(
-        `${API_ENDPOINT}/${!params ? "client" : params}/register`,
-        {
-          username: data.username,
-          password: data.password,
-          phoneNumber: data.phoneNumber,
-          occupation: data.occupation,
-        }
-      );
-      setIsSubmitted(true);
-      router.push("/auth/sign-in");
-      console.log("Signup successful:", response.data);
-      // Handle successful signup (e.g., redirect to a success page)
-    } catch (error) {
-      console.error("Signup error:", error);
-    }
+    axios
+      .post(`${API_ENDPOINT}/${!params ? "client" : params}/register`, {
+        username: data.username,
+        password: data.password,
+        phoneNumber: data.phoneNumber,
+        occupation: data.occupation,
+      })
+      .then((response) => {
+        toast({
+          title: "Success.",
+          description: "Sign Up Successful",
+          status: "success",
+          duration: 10000,
+          isClosable: true,
+        });
+        setIsSubmitted(true);
+        router.push("/auth/sign-in");
+        console.log("Signup successful:", response.data);
+        // Handle successful signup (e.g., redirect to a success page)
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        toast({
+          title: "Error.",
+          description: error.response.data.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      });
   };
   return (
     <div className="border ">
@@ -98,18 +111,6 @@ export default function SignUpForm() {
             </Text>
           </Stack>
 
-          {isSubmitted && (
-            <Alert status="success" mt={4} borderRadius="md">
-              <AlertIcon />
-              Client Account Created successfully successfully!
-              <CloseButton
-                position="absolute"
-                right="8px"
-                top="8px"
-                onClick={() => setIsSubmitted(false)}
-              />
-            </Alert>
-          )}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -195,7 +196,7 @@ export default function SignUpForm() {
                   }`}
                   //   disabled={isSubmitting}
                 >
-                  Sign up
+                  {isSubmitting ? <Spinner /> : "Sign Up"}
                 </button>
                 <Stack>
                   <Text align={"center"}>
