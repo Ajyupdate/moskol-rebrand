@@ -95,7 +95,7 @@ export default function Header() {
           </HStack>
           <Flex alignItems={"center"}>
             <Link href={"/buy"}>
-              <button className="px-2 mr-1 md:mr-4 md:py-1 text-white bg-custom-orange rounded-md shadow-sm hover:bg-orange-800 focus:ring-teal-400 focus:ring-offset-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
+              <button className="px-2 mr-1 md:mr-4 md:py-1 text-white bg-custom-orange rounded-md  hover:bg-orange-500 ">
                 Buy Our products
               </button>
             </Link>
@@ -125,6 +125,9 @@ export default function Header() {
                 </MenuItem>
                 <MenuItem>
                   <Link href={"/buy/add"}>Add Product</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link href={"/servie/add-service"}>Add Service</Link>
                 </MenuItem>
                 <MenuDivider />
                 <MenuItem>Logout</MenuItem>

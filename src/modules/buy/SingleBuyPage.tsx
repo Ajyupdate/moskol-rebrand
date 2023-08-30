@@ -10,16 +10,19 @@ import {
   ListItem,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
+  Spinner,
   Stack,
   StackDivider,
   Text,
   useColorModeValue,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -32,7 +35,9 @@ const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 interface ConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
+  onBuy?: () => void;
+  product?: IproductsProps;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -51,8 +56,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             <button
               onClick={onDelete}
               type="button"
-              className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold"
-            >
+              className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold">
               Delete
             </button>
 
@@ -66,23 +70,102 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   );
 };
 
+const BuyModal: React.FC<ConfirmationModalProps> = ({
+  isOpen,
+  onClose,
+  onBuy,
+  product,
+}) => {
+  return (
+    <Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Buy {product?.name}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            There are {product?.unitAvailable} unit of this product available
+            for this product. It will cost ${product?.price}. Ready to buy?
+          </ModalBody>
+
+          <ModalFooter>
+            <button
+              className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold"
+              onClick={onClose}>
+              Close
+            </button>
+
+            <button
+              className="rounded-md	 px-2 py-2 text-green-700 bg-green-50 ml-2 "
+              onClick={onBuy}>
+              Confirm Buy
+            </button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
+  );
+};
+
 export default function SingleBuyPage() {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteProductId, setDeleteProductId] = useState<string | undefined>(
     ""
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [unitAvailable, setunitAvailable] = useState<number>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
   const [product, setProduct] = useState<IproductsProps>();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [buyProductAlert, setBuyProductAlert] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
   const params = useParams();
 
-  const handleDelete = (productId: string | undefined) => {
+  const handleDelete = async (productId: string | undefined) => {
     // Perform delete logic here
     console.log(`Deleting role with ID: ${productId}`);
     setIsDeleteModalOpen(false);
     setDeleteProductId(productId);
+
+    console.log(productId);
+    try {
+      const response = await axios.delete(
+        `${API_ENDPOINT}/products/${productId}`
+      );
+
+      if (response.status === 200) {
+        toast({
+          title: "Success",
+          description: "product deleted successfully",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+
+        router.push("/buy");
+      } else {
+        console.error("Error:", response.data.message);
+        toast({
+          title: "Error",
+          description: response.data.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Unable to delete, try again later",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -99,18 +182,44 @@ export default function SingleBuyPage() {
           },
         });
 
-        console.log(response);
-
         if (response.status === 201) {
           setIsAdmin(true);
         }
       } catch (error) {
-        console.error("Error checking tokenn:", error);
+        // console.error("Error checking tokenn:");
       }
     };
 
     checkToken();
-  });
+  }, []);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const jwt = document.cookie.replace(
+          /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
+          "$1"
+        );
+
+        const response = await axios.get(
+          `${API_ENDPOINT}/client/verify-token`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+
+        if (response.status === 201) {
+          setIsClient(true);
+        }
+      } catch (error) {
+        // console.error("Error checking tokenn:");
+      }
+    };
+
+    checkToken();
+  }, []);
 
   useEffect(() => {
     // if (isAdmin && params.id) {
@@ -119,11 +228,50 @@ export default function SingleBuyPage() {
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
+          setunitAvailable(data.unitAvailable);
         })
         .catch((error) => console.log("error:", error));
       // }
     }
   }, []);
+
+  const handleBuyClick = () => {
+    if (isClient || isAdmin) {
+      setIsBuyModalOpen(true);
+
+      console.log(12);
+    } else {
+      router.push("/auth/sign-in");
+    }
+  };
+
+  async function buyFunction() {
+    if (unitAvailable !== undefined) {
+      try {
+        const response = await axios.patch(
+          `${API_ENDPOINT}/products/${params.id}`,
+          { unitAvailable: unitAvailable - 1 }
+        );
+        setIsBuyModalOpen(false);
+        toast({
+          title: "Success",
+          description: "product bought successfully",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        router.push("/buy");
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Unable to Buy, try again later",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    }
+  }
 
   return (
     <Container maxW={"7xl"}>
@@ -134,11 +282,20 @@ export default function SingleBuyPage() {
           onDelete={() => handleDelete(deleteProductId)}
         />
       </>
+
+      <>
+        <BuyModal
+          isOpen={isBuyModalOpen}
+          onClose={() => setIsBuyModalOpen(false)}
+          product={product}
+          onBuy={() => buyFunction()}
+        />
+      </>
+
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 18, md: 24 }}
-      >
+        py={{ base: 18, md: 24 }}>
         <Flex>
           <Image
             rounded={"md"}
@@ -159,15 +316,13 @@ export default function SingleBuyPage() {
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-            >
+              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
               {product?.name}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}
               fontWeight={300}
-              fontSize={"2xl"}
-            >
+              fontSize={"2xl"}>
               ₦{product?.price?.toLocaleString()}
             </Text>
           </Box>
@@ -179,8 +334,7 @@ export default function SingleBuyPage() {
               <StackDivider
                 borderColor={useColorModeValue("gray.200", "gray.600")}
               />
-            }
-          >
+            }>
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text fontSize={"lg"}>{product?.description}</Text>
             </VStack>
@@ -190,8 +344,7 @@ export default function SingleBuyPage() {
                 color={useColorModeValue(" #f09e06", " #f09e06")}
                 fontWeight={"500"}
                 textTransform={"uppercase"}
-                mb={"4"}
-              >
+                mb={"4"}>
                 {product?.unitAvailable} Units Available
               </Text>
             </Box>
@@ -201,8 +354,7 @@ export default function SingleBuyPage() {
                 color={useColorModeValue(" #f09e06", "yellow.300")}
                 fontWeight={"500"}
                 textTransform={"uppercase"}
-                mb={"4"}
-              >
+                mb={"4"}>
                 Product Features
               </Text>
 
@@ -219,17 +371,21 @@ export default function SingleBuyPage() {
           </Stack>
 
           <Stack>
-            <button className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
+            <button
+              onClick={handleBuyClick}
+              className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
               Buy Now
             </button>
 
             {isAdmin && (
               <Stack>
                 <button
-                  onClick={() => router.push(`/buy/${product?._id}/edit`)}
-                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-green-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
-                >
-                  Edit
+                  onClick={() => {
+                    setIsSubmitting(true);
+                    router.push(`/buy/${product?._id}/edit`);
+                  }}
+                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-green-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
+                  {isSubmitting ? <Spinner /> : "Edit"}
                 </button>
 
                 <button
@@ -238,8 +394,7 @@ export default function SingleBuyPage() {
                     setDeleteProductId(product?._id);
                     setIsDeleteModalOpen(true);
                   }}
-                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-red-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
-                >
+                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-red-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
                   Delete
                 </button>
               </Stack>

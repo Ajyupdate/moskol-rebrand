@@ -170,7 +170,7 @@ export default function Reviews() {
           fontWeight={"bold"}
           fontSize={20}
           textTransform={"uppercase"}
-          color={"purple.400"}>
+          color={"blue.500"}>
           People love us
         </chakra.h3>
         <chakra.h1
@@ -196,6 +196,7 @@ export default function Reviews() {
         spacing={6}
         columns={{ base: 1, xl: 2 }}
         mt={16}
+        p={{ base: 8 , md: "unset" }}
         mb={16}>
         {Reviews &&
           Reviews.map((cardInfo, index) => (
@@ -203,7 +204,7 @@ export default function Reviews() {
 
             <Flex
               key={cardInfo._id}
-              boxShadow={{ md: "lg", base: "unset" }}
+              boxShadow={{ md: "lg", base: "md" }}
               // maxW={{md: '640px'}}
               direction={{ base: "column-reverse", md: "row" }}
               // width={'full'}

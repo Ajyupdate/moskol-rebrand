@@ -6,18 +6,23 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Stack,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import Dropzone from "react-dropzone";
 import * as Yup from "yup";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const NewProductForm: React.FC = () => {
+  const router = useRouter();
+  const toast = useToast();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     description: Yup.string().required("Description is required"),
@@ -52,11 +57,26 @@ const NewProductForm: React.FC = () => {
     console.log("FormData as object:", formDataAsObject);
 
     try {
-      await axios.post(`${API_ENDPOINT}/products/`, formData);
+      await axios.post(`${API_ENDPOINT}/products`, formData);
       resetForm();
-      console.log("Product added successfully");
+
+      toast({
+        title: "Success",
+        description: "product Added successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+
+      router.push("/buy");
     } catch (error) {
-      console.error("Error adding product:", error);
+      toast({
+        title: "Error",
+        description: "Error adding product",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -77,7 +97,7 @@ const NewProductForm: React.FC = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
-          {({ values, errors, setFieldValue }) => (
+          {({ values, errors, setFieldValue, isSubmitting }) => (
             <Form>
               <FormControl isInvalid={!!errors.name} mt={4}>
                 <FormLabel htmlFor="name">
@@ -212,7 +232,7 @@ const NewProductForm: React.FC = () => {
                 <button
                   type="submit"
                   className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded">
-                  Add products
+                  {isSubmitting ? <Spinner /> : "Add Product"}
                 </button>
               </Stack>
             </Form>

@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Heading,
+  Icon,
   Image,
   SimpleGrid,
   Stack,
@@ -12,16 +13,19 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { ReactElement } from "react";
+import { FaRegLightbulb } from "react-icons/fa";
+import { MdPeopleOutline, MdVerifiedUser } from "react-icons/md";
 // import Image from "next/image";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 interface FeatureProps {
   text: string;
-  // iconBg: string;
-  // icon?: ReactElement;
+  iconBg: string;
+  icon?: ReactElement;
 }
 
-const Feature = ({ text }: FeatureProps) => {
+const Feature = ({ text, icon, iconBg }: FeatureProps) => {
   return (
     <Stack direction={"row"} align={"center"}>
       <Flex
@@ -30,9 +34,8 @@ const Feature = ({ text }: FeatureProps) => {
         align={"center"}
         justify={"center"}
         rounded={"full"}
-        // bg={iconBg}
-      >
-        {/* {icon} */}
+        bg={iconBg}>
+        {icon}
       </Flex>
       <Text fontWeight={600}>{text}</Text>
     </Stack>
@@ -41,7 +44,7 @@ const Feature = ({ text }: FeatureProps) => {
 
 export default function WhoWeAre() {
   return (
-    <Container maxW={"5xl"} py={12}>
+    <Container maxW={"5xl"} py={12} px={{ base: 8, md: "unset" }}>
       <Heading fontSize={{ base: "2xl", sm: "4xl" }} fontWeight={"bold"}>
         <Center>Who We Are</Center>
       </Heading>
@@ -73,22 +76,24 @@ export default function WhoWeAre() {
               />
             }>
             <Feature
-              // icon={
-              //   <Icon as={IoAnalyticsSharp} color={"yellow.500"} w={5} h={5} />
-              // }
-              // iconBg={useColorModeValue("yellow.100", "yellow.900")}
+              icon={
+                <Icon as={MdVerifiedUser} color={"yellow.500"} w={5} h={5} />
+              }
+              iconBg={useColorModeValue("yellow.100", "yellow.900")}
               text={"Quality and Authencity"}
             />
             <Feature
-              // icon={<Icon as={IoLogoBitcoin} color={"green.500"} w={5} h={5} />}
-              // iconBg={useColorModeValue("green.100", "green.900")}
+              icon={
+                <Icon as={FaRegLightbulb} color={"green.500"} w={5} h={5} />
+              }
+              iconBg={useColorModeValue("green.100", "green.900")}
               text={"Expertise and Reliability"}
             />
             <Feature
-              // icon={
-              //   <Icon as={IoSearchSharp} color={"purple.500"} w={5} h={5} />
-              // }
-              // iconBg={useColorModeValue("purple.100", "purple.900")}
+              icon={
+                <Icon as={MdPeopleOutline} color={"purple.500"} w={5} h={5} />
+              }
+              iconBg={useColorModeValue("purple.100", "purple.900")}
               text={"Customer-Centric Approach"}
             />
           </Stack>

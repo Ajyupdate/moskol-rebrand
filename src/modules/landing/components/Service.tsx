@@ -2,15 +2,15 @@
 
 import {
   Box,
-  Button,
   Container,
   Flex,
   Heading,
+  Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
 
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { IconType } from "react-icons/lib";
@@ -49,6 +49,48 @@ export interface ICardprops {
   description: string;
   href: string;
 }
+// const Card = ({ heading, description, imageUrl, href }: ICardprops) => {
+//   return (
+//     <Box
+//       maxW={{ base: "full", md: "275px" }}
+//       w={"full"}
+//       borderWidth="1px"
+//       borderRadius="lg"
+//       overflow="hidden">
+//       <Link href={href}>
+//         <Stack spacing={2} p={4}>
+//           <Flex
+//             w={"100%"}
+//             h={"90%"}
+//             align={"center"}
+//             justify={"center"}
+//             color={"white"}>
+//             <Image
+//               width={10000}
+//               height={1000}
+//               src={`${imageUrl ? `${API_ENDPOINT}/products/${imageUrl}` : ""}`}
+//               alt="Service"
+//             />
+//           </Flex>
+//           <Box mt={2}>
+//             <Heading
+//               fontSize={{ md: "18", base: "lg" }}
+//               fontWeight={{ md: "semibold", base: "semibold" }}>
+//               {heading}
+//             </Heading>
+//             <Text mt={1} fontSize={"sm"}>
+//               {description}
+//             </Text>
+//           </Box>
+//           <Box>
+//             <button className="text-blue-500">Learn More</button>
+//           </Box>
+//         </Stack>
+//       </Link>
+//     </Box>
+//   );
+// };
+
 const Card = ({ heading, description, imageUrl, href }: ICardprops) => {
   return (
     <Box
@@ -58,33 +100,34 @@ const Card = ({ heading, description, imageUrl, href }: ICardprops) => {
       borderRadius="lg"
       overflow="hidden">
       <Link href={href}>
-        <Stack p={4} spacing={2}>
+        <Stack spacing={2} p={4}>
           <Flex
             w={"100%"}
-            h={"90%"}
+            h={"275px"} // Set a fixed height for the image container
             align={"center"}
             justify={"center"}
             color={"white"}>
             <Image
-              width={10000}
-              height={10000}
+              // width="100%" // Set a fixed width for the image
+              // height="100%" // Set a fixed height for the image
+              boxSize={"100%"} // Maintain aspect ratio while fitting within width and height
               src={`${imageUrl ? `${API_ENDPOINT}/products/${imageUrl}` : ""}`}
               alt="Service"
             />
           </Flex>
           <Box mt={2}>
             <Heading
-              fontSize={{ md: "18" }}
-              fontWeight={{ md: "semibold", base: "medium" }}>
+              fontSize={{ md: "18", base: "lg" }}
+              fontWeight={{ md: "semibold", base: "semibold" }}>
               {heading}
             </Heading>
             <Text mt={1} fontSize={"sm"}>
               {description}
             </Text>
           </Box>
-          <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
-            Learn more
-          </Button>
+          <Box>
+            <button className="text-blue-500">Learn More</button>
+          </Box>
         </Stack>
       </Link>
     </Box>
@@ -126,7 +169,10 @@ export default function Service({ queryNumber }: IServiceQueryProps) {
                 key={service._id}
                 heading={service.title}
                 imageUrl={service.imageUrl}
-                description={`${service.description}...`}
+                description={`${service.description
+                  .split(" ")
+                  .splice(0, 20)
+                  .join(" ")}...`}
                 href={`/services/${service._id}`}
               />
             ))}
