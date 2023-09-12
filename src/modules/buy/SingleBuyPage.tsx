@@ -51,7 +51,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <ModalOverlay bg="rgba(0, 0, 0, 0.5)" p={{ base: 4, md: "unset" }} />
         <ModalContent>
           <ModalHeader>Confirm Deletion</ModalHeader>
-          <ModalBody>Are you sure you want to delete this role?</ModalBody>
+          <ModalBody>Are you sure you want to delete this product?</ModalBody>
           <ModalFooter>
             <button
               onClick={onDelete}
