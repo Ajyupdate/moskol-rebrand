@@ -66,7 +66,9 @@ const NewProductForm: React.FC = () => {
     console.log("FormData as object:", formDataAsObject);
 
     try {
-      await axios.post(`${API_ENDPOINT}/service`, formData);
+      await axios.post(`${API_ENDPOINT}/service`,
+      
+       formData);
       // resetForm();
       console.log("Service added successfully");
     } catch (error) {
