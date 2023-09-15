@@ -314,8 +314,11 @@ export default function Reviews() {
               mt={8}
             >
               <Text fontSize="lg" fontStyle="italic">
-                "{reviews[activeReview]?.comment}"
+                <Text fontSize="lg" fontStyle="italic">
+                  {`"${reviews[activeReview]?.comment}"`}
+                </Text>
               </Text>
+
               <Flex mt={4}>
                 <Avatar
                   src={`${

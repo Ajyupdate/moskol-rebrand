@@ -68,7 +68,6 @@ import {
   Heading,
   Text,
   VStack,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { PiParallelogramFill } from "react-icons/pi";
@@ -128,7 +127,7 @@ export default function CoreValues() {
           <Text>
             At Moskol, we understand that making decisions about solar and
             security solutions for your home or business is a significant
-            investment. That's why we strive to stand out from the rest and
+            investment. That is why we strive to stand out from the rest and
             offer you compelling reasons to choose us as your trusted partner in
             the world of solar and CCTV technology.
           </Text>
@@ -146,7 +145,7 @@ export default function CoreValues() {
               <VStack
                 // maxW={"320px"}
                 w={"full"}
-                bg={useColorModeValue("white", "gray.900")}
+                // bg={useColorModeValue("white", "gray.900")}
                 boxShadow={"md"}
                 rounded={"lg"}
                 p={6}
@@ -167,7 +166,7 @@ export default function CoreValues() {
 
                 <Text
                   textAlign={"center"}
-                  color={useColorModeValue("gray.700", "gray.400")}
+                  // color={useColorModeValue("gray.700", "gray.400")}
                 >
                   {values.text}
                 </Text>
