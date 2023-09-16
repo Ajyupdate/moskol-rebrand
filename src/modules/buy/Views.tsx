@@ -28,10 +28,12 @@ const BuyPage = () => {
   }, []);
   return (
     <Flex
+      mt={12}
       direction="column"
       align="center"
       py={8}
-      mx={{ base: "10%", md: "unset" }}>
+      mx={{ base: "10%", md: "unset" }}
+    >
       <Heading as="h1" size="xl" mb={8}>
         Buy Solar Energy and CCTV Products
       </Heading>
@@ -42,7 +44,8 @@ const BuyPage = () => {
           md: "repeat(auto-fill, minmax(300px, 1fr))",
           base: "column",
         }}
-        gap={8}>
+        gap={8}
+      >
         {products.map((product) => (
           <Link href={`buy/${product._id}`} key={product._id}>
             <Box p={4} borderWidth="1px" borderRadius="md" bg="white">
