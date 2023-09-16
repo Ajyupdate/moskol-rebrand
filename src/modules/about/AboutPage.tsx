@@ -5,7 +5,7 @@ import { CardProps } from "../landing/components/Service";
 
 const AboutPage = () => {
   return (
-    <Box p={{ md: 4, base: 2 }} mx={"10%"}>
+    <Box p={{ md: 4, base: 2 }} mx={"10%"} mt={8}>
       <Heading mb={4}>About Us</Heading>
       <Center>
         <Image
@@ -94,7 +94,8 @@ const Feature = ({ title, description }: CardProps) => {
       boxShadow="sm"
       bg="white"
       transition="transform 0.2s"
-      _hover={{ transform: "scale(1.03)" }}>
+      _hover={{ transform: "scale(1.03)" }}
+    >
       <Heading size="md" mb={2}>
         {title}
       </Heading>

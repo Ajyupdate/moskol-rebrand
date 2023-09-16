@@ -123,6 +123,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { ReactElement } from "react";
 import { FaLightbulb, FaShieldAlt } from "react-icons/fa";
 import { PiParallelogramFill } from "react-icons/pi";
@@ -230,15 +231,17 @@ const WhoWeAre = () => {
               />
             </GridItem>
           </Grid>
-          <Stack
-            justify={{ base: "center", md: "unset" }}
-            direction={"row"}
-            mt={2}
-          >
-            <button className="p-2 bg-custom-orange rounded-full text-white hover:bg-blue-500">
-              More About Us
-            </button>
-          </Stack>
+          <Link href={"/about"}>
+            <Stack
+              justify={{ base: "center", md: "unset" }}
+              direction={"row"}
+              mt={2}
+            >
+              <button className="p-2 bg-custom-orange rounded-full text-white hover:bg-blue-500">
+                More About Us
+              </button>
+            </Stack>
+          </Link>
         </Box>
         <div
           style={{
