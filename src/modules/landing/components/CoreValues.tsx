@@ -135,41 +135,38 @@ export default function CoreValues() {
       </Grid>
       <Grid
         mt={8}
-        templateColumns={{ base: "repeat(1fr, 1fr)", md: "repeat(4, 1fr)" }}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
         gap={6}
         bg={"white"}
       >
         {Data.map((values) => (
-          <GridItem key={values.id} colSpan={{ base: 1, md: 1 }}>
-            <Center py={6}>
+          <GridItem
+            key={values.id}
+            colSpan={{ base: 1, md: 1 }}
+            w="100%" // Set width to 100% to make each GridItem equal in width
+          >
+            <Center h="100%">
+              {" "}
+              {/* Set height to 100% to make each GridItem equal in height */}
               <VStack
-                // maxW={"320px"}
                 w={"full"}
-                // bg={useColorModeValue("white", "gray.900")}
+                h={"full"} // Set a fixed height for each card container
                 boxShadow={"md"}
                 rounded={"lg"}
                 p={6}
                 textAlign={"center"}
+                display="flex"
+                flexDirection="column" // Ensure content stacks vertically
               >
                 <Flex justify={"center"}>
-                  <Image
-                    src={values.imageSrc}
-                    alt="Card Image"
-                    width={"50"}
-                    // height="200" // Set the height of the image Box
-                  />
+                  <Image src={values.imageSrc} alt="Card Image" width={"50"} />
                 </Flex>
 
                 <Heading fontSize={"2xl"} fontFamily={"body"}>
                   {values.name}
                 </Heading>
 
-                <Text
-                  textAlign={"center"}
-                  // color={useColorModeValue("gray.700", "gray.400")}
-                >
-                  {values.text}
-                </Text>
+                <Text textAlign={"center"}>{values.text}</Text>
               </VStack>
             </Center>
           </GridItem>
