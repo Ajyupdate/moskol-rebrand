@@ -134,7 +134,9 @@ export default function Carousel() {
             lineHeight={1.2}
             fontSize={useBreakpointValue({ base: "3xl", md: "5xl" })}
           >
-            Affordable Energy and <br /> Efficient Security Systems
+            Affordable Energy
+            <br /> and Efficient <br />
+            Security Systems
           </Text>
           <Text color={"white"}>
             Your trusted partner in sustainable energy solutions and advanced

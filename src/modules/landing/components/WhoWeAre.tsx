@@ -145,7 +145,7 @@ const Feature = ({ text, icon, heading }: FeatureProps) => {
         justify={{ base: "center", md: "center" }}
         rounded={"full"}
         color={"white"}
-        bg={"rgb(253, 93, 0)"}
+        bg={"black"}
         p={4}
         ml={{ base: 6, md: "unset" }}
       >
@@ -210,10 +210,7 @@ const WhoWeAre = () => {
             cost-efficient energy solutions.
           </Text>
           <Grid gap={8} mt={8} templateColumns={["1fr 1fr", "1fr 1fr"]}>
-            <GridItem
-              colSpan={1}
-              borderRight={{ md: "2px solid gray", base: "none" }}
-            >
+            <GridItem colSpan={1}>
               <Feature
                 icon={<Icon as={FaLightbulb} color={"white"} w={6} h={6} />}
                 text={
@@ -223,7 +220,10 @@ const WhoWeAre = () => {
               />
             </GridItem>
 
-            <GridItem colSpan={1}>
+            <GridItem
+              colSpan={1}
+              // borderLeft={{ md: "2px solid gray", base: "none" }}
+            >
               <Feature
                 heading={"Safe Security"}
                 icon={<Icon as={FaShieldAlt} color={"white"} w={6} h={6} />}
@@ -233,9 +233,9 @@ const WhoWeAre = () => {
           </Grid>
           <Link href={"/about"}>
             <Stack
-              justify={{ base: "center", md: "unset" }}
+              justify={{ base: "center", md: "center" }}
               direction={"row"}
-              mt={2}
+              mt={4}
             >
               <button className="p-2 bg-custom-orange rounded-full text-white hover:bg-blue-500">
                 More About Us
@@ -246,7 +246,7 @@ const WhoWeAre = () => {
         <div
           style={{
             position: "absolute",
-            bottom: 0,
+            bottom: -40,
             right: 0,
             width: 0,
             height: 0,
