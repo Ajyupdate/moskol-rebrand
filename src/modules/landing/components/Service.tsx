@@ -235,12 +235,13 @@ const Card = ({ heading, description, imageUrl, href }: ICardprops) => {
           alt="service"
         />
         <Heading
-          bg={"black"}
+          bg={"gray.100"}
           p={2}
+          mx={2}
           fontSize={20}
-          color={"white"}
+          color={"black"}
           position="absolute"
-          top="10%"
+          top="2%"
         >
           {heading}
         </Heading>
