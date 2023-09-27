@@ -48,7 +48,7 @@ const NewProductForm: React.FC = () => {
   const handleSubmit = async (values: any, { resetForm }: any) => {
     console.log(values);
     const formData = new FormData();
-    formData.append("imageUrl", values.image[0]);
+    formData.append("image", values.image[0]);
     formData.append("title", values.title);
     formData.append("description", values.description);
 
@@ -66,9 +66,11 @@ const NewProductForm: React.FC = () => {
     console.log("FormData as object:", formDataAsObject);
 
     try {
-      await axios.post(`${API_ENDPOINT}/service`,
-      
-       formData);
+      await axios.post(
+        `${API_ENDPOINT}/service`,
+
+        formData
+      );
       // resetForm();
       console.log("Service added successfully");
     } catch (error) {
@@ -77,7 +79,7 @@ const NewProductForm: React.FC = () => {
   };
 
   return (
-    <Flex minH={{ md: "100vh" }} align={"center"} justify={"center"}>
+    <Flex mt={8} minH={{ md: "100vh" }} align={"center"} justify={"center"}>
       <Stack w={{ md: "40%", base: "90%" }} p={{ base: 2, md: "unset" }}>
         <Stack align={"center"} mt={8}>
           <Heading fontSize={"4xl"}>Add New Service</Heading>
@@ -93,7 +95,8 @@ const NewProductForm: React.FC = () => {
             benefits: [{ title: "", description: "" }],
           }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+        >
           {({ values, errors, setFieldValue }) => (
             <Form encType="multipart/form-data" name="image">
               <Stack gap={4}>
@@ -144,7 +147,8 @@ const NewProductForm: React.FC = () => {
                             <button
                               className="rounded-md	 px-1 py-1 text-red-700 bg-red-50 font-bold"
                               type="button"
-                              onClick={() => arrayHelpers.remove(index)}>
+                              onClick={() => arrayHelpers.remove(index)}
+                            >
                               <DeleteIcon pb="1" /> Remove Feature
                             </button>
                           </Flex>
@@ -183,13 +187,15 @@ const NewProductForm: React.FC = () => {
                       <Flex
                         justify="flex-end"
                         direction={{ base: "column", md: "row" }}
-                        my={6}>
+                        my={6}
+                      >
                         <button
                           className="bg-blue-50 hover:bg-blue-300 text-blue-600 font-bold py-2 md:px-4 rounded"
                           type="button"
                           onClick={() =>
                             arrayHelpers.push({ title: "", description: "" })
-                          }>
+                          }
+                        >
                           Add Another Feature
                         </button>
                       </Flex>
@@ -209,7 +215,8 @@ const NewProductForm: React.FC = () => {
                             <button
                               className="rounded-md	 px-1 py-1 text-red-700 bg-red-50 font-bold"
                               type="button"
-                              onClick={() => arrayHelpers.remove(index)}>
+                              onClick={() => arrayHelpers.remove(index)}
+                            >
                               <DeleteIcon pb="1" /> Remove Benefit
                             </button>
                           </Flex>
@@ -248,13 +255,15 @@ const NewProductForm: React.FC = () => {
                       <Flex
                         justify="flex-end"
                         direction={{ base: "column", md: "row" }}
-                        my={6}>
+                        my={6}
+                      >
                         <button
                           className="bg-blue-50 hover:bg-blue-300 text-blue-600 font-bold py-2 md:px-4 rounded"
                           type="button"
                           onClick={() =>
                             arrayHelpers.push({ title: "", description: "" })
-                          }>
+                          }
+                        >
                           Add New Benefit
                         </button>
                       </Flex>
@@ -264,7 +273,8 @@ const NewProductForm: React.FC = () => {
 
                 <FormControl
                   mt={4}
-                  isInvalid={!!values.image.length && !values.image[0]}>
+                  isInvalid={!!values.image.length && !values.image[0]}
+                >
                   <FormLabel htmlFor="image">
                     <Heading fontWeight={"medium"} fontSize={"md"}>
                       Image
@@ -273,11 +283,13 @@ const NewProductForm: React.FC = () => {
                   <Dropzone
                     onDrop={(acceptedFiles) =>
                       setFieldValue("image", acceptedFiles)
-                    }>
+                    }
+                  >
                     {({ getRootProps, getInputProps }) => (
                       <div
                         {...getRootProps()}
-                        style={{ padding: "10px", border: "1px dashed" }}>
+                        style={{ padding: "10px", border: "1px dashed" }}
+                      >
                         <input {...getInputProps()} name="image" />
                         <p>Drag n drop an image here, or click to select one</p>
                         {values.image && values.image[0] && (
@@ -300,7 +312,8 @@ const NewProductForm: React.FC = () => {
                 <Stack spacing={4} pt={4}>
                   <button
                     type="submit"
-                    className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded">
+                    className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded"
+                  >
                     Add New Service
                   </button>
                 </Stack>
