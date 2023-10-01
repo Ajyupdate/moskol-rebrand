@@ -50,9 +50,7 @@ const BuyPage = () => {
           <Link href={`buy/${product._id}`} key={product._id}>
             <Box p={4} borderWidth="1px" borderRadius="md" bg="white">
               <Image
-                src={`${
-                  product ? `${API_ENDPOINT}/products/${product.imageUrl}` : ""
-                }`}
+                src={`${product ? product.imageUrl : ""}`}
                 alt={product.name}
                 h="40"
                 w={{ base: "100%", md: "100%", lg: "100%" }} // Responsive width

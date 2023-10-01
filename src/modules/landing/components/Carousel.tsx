@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Flex,
   Stack,
@@ -7,15 +5,32 @@ import {
   VStack,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import React from "react";
+// import { S3 } from "aws-sdk";
 import Link from "next/link";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+
 export default function Carousel() {
-  const heroImage = `${API_ENDPOINT}/products/uploads/5992a62a-f92e-4339-a444-731fe6b06477`;
+  const [url, setUrl] = React.useState("");
+
+  React.useEffect(() => {
+    fetch(`${API_ENDPOINT}/image`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUrl(data);
+      })
+      .catch((error) => console.log("error:", error));
+  }, []);
+
+  const heroImage = `${API_ENDPOINT}/image`;
+  // const heroImage = `${API_ENDPOINT}/products/uploads/5992a62a-f92e-4339-a444-731fe6b06477`;
+
   return (
     <Flex
       w={"full"}
       h={"100vh"}
-      backgroundImage={`url(${heroImage})`}
+      backgroundImage={`url(${url})`}
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
     >
@@ -26,7 +41,7 @@ export default function Carousel() {
         px={useBreakpointValue({ base: 4, md: 8 })}
         bgGradient={"linear(to-r, blackAlpha.600, transparent)"}
       >
-        <Stack maxW={"2xl"} ml={{ md: 4 }} align={"flex-start"} spacing={6}>
+        <Stack maxW={"2xl"} ml={{ md: "2%" }} align={"flex-start"} spacing={6}>
           <Text
             color={"white"}
             fontWeight={800}

@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/components/header";
 import Carousel from "../components/Carousel";
 import CoreValues from "../components/CoreValues";

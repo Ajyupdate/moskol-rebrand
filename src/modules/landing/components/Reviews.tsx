@@ -233,6 +233,7 @@
 //     </Flex>
 //   );
 // }
+"use client";
 import {
   Avatar,
   Badge,

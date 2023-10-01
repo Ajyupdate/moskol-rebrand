@@ -66,7 +66,10 @@ const Card = ({ heading, description, imageUrl, href, id }: ICardprops) => {
           alt="service"
         />
         <Heading
-          bg={"gray.100"}
+          // bg={"gray.100"}
+          _hover={{
+            bg: "gray.100",
+          }}
           p={2}
           mx={2}
           fontSize={20}
