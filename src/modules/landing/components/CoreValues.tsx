@@ -59,6 +59,7 @@
 //   );
 // }
 
+"use client";
 import {
   Box,
   Center,
