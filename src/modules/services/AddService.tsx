@@ -9,6 +9,7 @@ import {
   Input,
   Stack,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import {
@@ -27,6 +28,7 @@ import * as Yup from "yup";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const NewProductForm: React.FC = () => {
+  const toast = useToast();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("title is required"),
     description: Yup.string().required("Description is required"),
@@ -55,6 +57,7 @@ const NewProductForm: React.FC = () => {
     formData.append("features", JSON.stringify(values.features));
     formData.append("benefits", JSON.stringify(values.benefits));
 
+    console.log(formData);
     const formDataAsObject = Array.from(formData.entries()).reduce(
       (acc, [key, value]) => {
         acc[key] = value;
@@ -73,6 +76,13 @@ const NewProductForm: React.FC = () => {
       );
       // resetForm();
       console.log("Service added successfully");
+      toast({
+        title: "Success",
+        description: "product Added successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("Error adding product:", error);
     }

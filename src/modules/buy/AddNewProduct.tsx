@@ -36,9 +36,8 @@ const NewProductForm: React.FC = () => {
   });
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
-    console.log(values);
     const formData = new FormData();
-    formData.append("imageUrl", values.image[0]);
+    formData.append("image", values.image[0]);
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", values.price);
@@ -54,11 +53,15 @@ const NewProductForm: React.FC = () => {
       {} as { [key: string]: any }
     );
 
-    console.log("FormData as object:", formDataAsObject);
-
     try {
-      await axios.post(`${API_ENDPOINT}/products`, formData);
-      resetForm();
+      await axios.post(
+        `${API_ENDPOINT}/products`,
+
+        formData
+      );
+
+      console.log("Product added successfully");
+      // resetForm();
 
       toast({
         title: "Success",
@@ -70,6 +73,7 @@ const NewProductForm: React.FC = () => {
 
       router.push("/buy");
     } catch (error) {
+      console.error("Error adding product:", error);
       toast({
         title: "Error",
         description: "Error adding product",
@@ -81,7 +85,7 @@ const NewProductForm: React.FC = () => {
   };
 
   return (
-    <Flex minH={{ md: "100vh" }} align={"center"} justify={"center"}>
+    <Flex minH={{ md: "100vh" }} mt={16} align={"center"} justify={"center"}>
       <Stack w={{ md: "40%", base: "90%" }} p={{ base: 2, md: "unset" }}>
         <Stack align={"center"} mt={8}>
           <Heading fontSize={"4xl"}>Add Product To Sell</Heading>
@@ -96,9 +100,10 @@ const NewProductForm: React.FC = () => {
             features: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+        >
           {({ values, errors, setFieldValue, isSubmitting }) => (
-            <Form>
+            <Form encType="multipart/form-data" name="image">
               <FormControl isInvalid={!!errors.name} mt={4}>
                 <FormLabel htmlFor="name">
                   <Heading fontWeight={"medium"} fontSize={"md"}>
@@ -195,7 +200,8 @@ const NewProductForm: React.FC = () => {
 
               <FormControl
                 mt={4}
-                isInvalid={!!values.image.length && !values.image[0]}>
+                isInvalid={!!values.image.length && !values.image[0]}
+              >
                 <FormLabel htmlFor="image">
                   <Heading fontWeight={"medium"} fontSize={"md"}>
                     Image
@@ -204,12 +210,14 @@ const NewProductForm: React.FC = () => {
                 <Dropzone
                   onDrop={(acceptedFiles) =>
                     setFieldValue("image", acceptedFiles)
-                  }>
+                  }
+                >
                   {({ getRootProps, getInputProps }) => (
                     <div
                       {...getRootProps()}
-                      style={{ padding: "10px", border: "1px dashed" }}>
-                      <input {...getInputProps()} />
+                      style={{ padding: "10px", border: "1px dashed" }}
+                    >
+                      <input {...getInputProps()} name="image" />
                       <p>Drag n drop an image here, or click to select one</p>
                       {values.image && values.image[0] && (
                         <Image
@@ -231,7 +239,8 @@ const NewProductForm: React.FC = () => {
               <Stack spacing={4} pt={4}>
                 <button
                   type="submit"
-                  className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded">
+                  className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded"
+                >
                   {isSubmitting ? <Spinner /> : "Add Product"}
                 </button>
               </Stack>

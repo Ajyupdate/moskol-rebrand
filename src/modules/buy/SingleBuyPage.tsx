@@ -56,7 +56,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             <button
               onClick={onDelete}
               type="button"
-              className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold">
+              className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold"
+            >
               Delete
             </button>
 
@@ -91,13 +92,15 @@ const BuyModal: React.FC<ConfirmationModalProps> = ({
           <ModalFooter>
             <button
               className="rounded-md	 px-2 py-2 text-red-700 bg-red-50 ml-2 font-bold"
-              onClick={onClose}>
+              onClick={onClose}
+            >
               Close
             </button>
 
             <button
               className="rounded-md	 px-2 py-2 text-green-700 bg-green-50 ml-2 "
-              onClick={onBuy}>
+              onClick={onBuy}
+            >
               Confirm Buy
             </button>
           </ModalFooter>
@@ -227,6 +230,7 @@ export default function SingleBuyPage() {
       fetch(`${API_ENDPOINT}/products/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setProduct(data);
           setunitAvailable(data.unitAvailable);
         })
@@ -234,6 +238,7 @@ export default function SingleBuyPage() {
       // }
     }
   }, []);
+  console.log(product?.imageUrl);
 
   const handleBuyClick = () => {
     if (isClient || isAdmin) {
@@ -295,16 +300,13 @@ export default function SingleBuyPage() {
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 18, md: 24 }}>
+        py={{ base: 18, md: 24 }}
+      >
         <Flex>
           <Image
             rounded={"md"}
             alt={"product image"}
-            src={`${
-              product?.imageUrl
-                ? `${API_ENDPOINT}/products/${product?.imageUrl}`
-                : ""
-            }`}
+            src={`${product?.imageUrl ? `${product.imageUrl}` : ""}`}
             fit={"cover"}
             align={"center"}
             w={"100%"}
@@ -316,13 +318,15 @@ export default function SingleBuyPage() {
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
+              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+            >
               {product?.name}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}
               fontWeight={300}
-              fontSize={"2xl"}>
+              fontSize={"2xl"}
+            >
               ₦{product?.price?.toLocaleString()}
             </Text>
           </Box>
@@ -334,7 +338,8 @@ export default function SingleBuyPage() {
               <StackDivider
                 borderColor={useColorModeValue("gray.200", "gray.600")}
               />
-            }>
+            }
+          >
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text fontSize={"lg"}>{product?.description}</Text>
             </VStack>
@@ -344,7 +349,8 @@ export default function SingleBuyPage() {
                 color={useColorModeValue(" #f09e06", " #f09e06")}
                 fontWeight={"500"}
                 textTransform={"uppercase"}
-                mb={"4"}>
+                mb={"4"}
+              >
                 {product?.unitAvailable} Units Available
               </Text>
             </Box>
@@ -354,7 +360,8 @@ export default function SingleBuyPage() {
                 color={useColorModeValue(" #f09e06", "yellow.300")}
                 fontWeight={"500"}
                 textTransform={"uppercase"}
-                mb={"4"}>
+                mb={"4"}
+              >
                 Product Features
               </Text>
 
@@ -373,7 +380,8 @@ export default function SingleBuyPage() {
           <Stack>
             <button
               onClick={handleBuyClick}
-              className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
+              className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-blue-900 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+            >
               Buy Now
             </button>
 
@@ -384,7 +392,8 @@ export default function SingleBuyPage() {
                     setIsSubmitting(true);
                     router.push(`/buy/${product?._id}/edit`);
                   }}
-                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-green-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
+                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-green-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+                >
                   {isSubmitting ? <Spinner /> : "Edit"}
                 </button>
 
@@ -394,7 +403,8 @@ export default function SingleBuyPage() {
                     setDeleteProductId(product?._id);
                     setIsDeleteModalOpen(true);
                   }}
-                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-red-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2">
+                  className="rounded-none w-full mt-8 py-4 text-lg uppercase transition-transform shadow-lg bg-red-500 text-white dark:bg-gray-50 dark:text-gray-900 hover:translate-y-2"
+                >
                   Delete
                 </button>
               </Stack>

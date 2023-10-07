@@ -34,14 +34,12 @@ const SolarInstallationPage = () => {
   }, []);
 
   return (
-    <Box p={4} mx={"10%"}>
+    <Box p={4} mx={"10%"} mt={16}>
       <Heading mb={4}>{data?.title}</Heading>
       <Text>{data?.description}</Text>
 
       <Image
-        src={`${
-          data?.imageUrl ? `${API_ENDPOINT}/products/${data?.imageUrl}` : ""
-        }`}
+        src={`${data?.imageUrl ? `${data.imageUrl}` : ""}`}
         alt={data?.title}
         mt={6}
         borderRadius="lg"
@@ -118,7 +116,8 @@ const Feature = ({ title, description }: CardProps) => {
       bg="white"
       flex="1"
       minW={{ base: "100%", md: "25%" }}
-      mb={{ base: 4, md: 0 }}>
+      mb={{ base: 4, md: 0 }}
+    >
       <Heading size="md" mb={2}>
         {title}
       </Heading>
@@ -136,7 +135,8 @@ const Benefit = ({ title, description }: CardProps) => {
       boxShadow="sm"
       flex="1"
       minW={{ base: "100%", md: "25%" }}
-      mb={{ base: 4, md: 0 }}>
+      mb={{ base: 4, md: 0 }}
+    >
       <Heading size="md" mb={2}>
         {title}
       </Heading>
