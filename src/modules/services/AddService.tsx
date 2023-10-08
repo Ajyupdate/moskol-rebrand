@@ -7,6 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Stack,
   Textarea,
   useToast,
@@ -48,7 +49,6 @@ const NewProductForm: React.FC = () => {
   });
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
-    console.log(values);
     const formData = new FormData();
     formData.append("image", values.image[0]);
     formData.append("title", values.title);
@@ -57,7 +57,6 @@ const NewProductForm: React.FC = () => {
     formData.append("features", JSON.stringify(values.features));
     formData.append("benefits", JSON.stringify(values.benefits));
 
-    console.log(formData);
     const formDataAsObject = Array.from(formData.entries()).reduce(
       (acc, [key, value]) => {
         acc[key] = value;
@@ -65,8 +64,6 @@ const NewProductForm: React.FC = () => {
       },
       {} as { [key: string]: any }
     );
-
-    console.log("FormData as object:", formDataAsObject);
 
     try {
       await axios.post(
@@ -107,7 +104,7 @@ const NewProductForm: React.FC = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ values, errors, setFieldValue }) => (
+          {({ values, errors, setFieldValue, isSubmitting }) => (
             <Form encType="multipart/form-data" name="image">
               <Stack gap={4}>
                 <FormControl isInvalid={!!errors.title} mt={4}>
@@ -324,7 +321,7 @@ const NewProductForm: React.FC = () => {
                     type="submit"
                     className="my-4 bg-custom-orange hover:bg-orange-200 text-white font-semibold py-2 px-4 rounded"
                   >
-                    Add New Service
+                    {isSubmitting ? <Spinner /> : "Add Service"}
                   </button>
                 </Stack>
               </Stack>

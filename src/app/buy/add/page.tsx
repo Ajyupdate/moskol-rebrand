@@ -1,9 +1,13 @@
-'use client'
-import NewProductForm from '@/modules/buy/AddNewProduct'
-import React from 'react'
+"use client";
+import PrivateRoute from "@/components/PrivateRoute";
+import NewProductForm from "@/modules/buy/AddNewProduct";
 
 export default function NewProduct() {
   return (
-    <div><NewProductForm/></div>
-  )
+    <div>
+      <PrivateRoute>
+        <NewProductForm />
+      </PrivateRoute>
+    </div>
+  );
 }
