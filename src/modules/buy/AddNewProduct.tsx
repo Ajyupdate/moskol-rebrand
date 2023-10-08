@@ -15,12 +15,14 @@ import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import * as Yup from "yup";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const NewProductForm: React.FC = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setIsLoading] = useState(true);
   const router = useRouter();
   const toast = useToast();
   const validationSchema = Yup.object().shape({

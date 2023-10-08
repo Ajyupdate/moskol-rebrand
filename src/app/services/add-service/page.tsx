@@ -1,9 +1,13 @@
-'use client'
-import AddService from '@/modules/services/AddService'
-import React from 'react'
+"use client";
+import PrivateRoute from "@/components/PrivateRoute";
+import AddService from "@/modules/services/AddService";
 
 export default function AddServicePage() {
   return (
-    <div><AddService/></div>
-  )
+    <PrivateRoute>
+      <div>
+        <AddService />
+      </div>
+    </PrivateRoute>
+  );
 }

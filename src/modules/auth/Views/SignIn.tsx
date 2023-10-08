@@ -78,7 +78,8 @@ const LoginForm = () => {
         mx={"auto"}
         w={{ md: "40%", base: "unset" }}
         py={12}
-        px={6}>
+        px={6}
+      >
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
@@ -87,16 +88,22 @@ const LoginForm = () => {
         </Stack>
 
         {params && (
-          <Center>
-            <Heading fontSize={"md"} fontWeight={"medium"}>
-              Sign In as Admin
-            </Heading>
-          </Center>
+          <Box>
+            <Center>
+              <Heading fontSize={"md"} fontWeight={"medium"}>
+                Sign In as Admin
+              </Heading>
+            </Center>
+            <Center>
+              <Text>To test: (email: moskol, password: moskol)</Text>
+            </Center>
+          </Box>
         )}
         <Formik
           initialValues={{ username: "", password: "" }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+        >
           {({ isSubmitting }) => (
             <Form>
               <Box marginBottom="2">
@@ -134,7 +141,8 @@ const LoginForm = () => {
                     ? "opacity-75 cursor-not-allowed"
                     : "opacity-100 cursor-pointer"
                 }`}
-                disabled={isSubmitting}>
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? <Spinner /> : "Login"}
               </button>
               <Stack>
@@ -143,7 +151,8 @@ const LoginForm = () => {
                   <Link
                     fontWeight={"bold"}
                     href="../auth/sign-up"
-                    color={"orange.500"}>
+                    color={"orange.500"}
+                  >
                     Sign up
                   </Link>
                 </Text>
@@ -158,7 +167,8 @@ const LoginForm = () => {
                       <Link
                         fontWeight={"bold"}
                         href="../auth/sign-in?query=admin"
-                        color={"orange.500"}>
+                        color={"orange.500"}
+                      >
                         Admin
                       </Link>
                     </Text>
