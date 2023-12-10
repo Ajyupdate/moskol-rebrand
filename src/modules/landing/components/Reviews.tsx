@@ -39,7 +39,7 @@ export default function Reviews() {
   };
   React.useEffect(() => {
     if (API_ENDPOINT) {
-      fetch(`${API_ENDPOINT}/reviews`, {
+      fetch(`${API_ENDPOINT}`, {
         // method: "POST",
         headers: {
           "Content-Type": "application/json",
