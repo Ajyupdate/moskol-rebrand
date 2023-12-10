@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Heading, Image, Link } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Image, Link } from "@chakra-ui/react";
 import axios from "axios";
 
 // import Image from "next/image";
@@ -58,6 +58,33 @@ const Card = ({ heading, description, imageUrl, href, id }: ICardprops) => {
   return (
     <Link href={href}>
       <Box position="relative">
+        <Center>
+          <Box
+            w="100%"
+            bg="rgba(0, 0, 0, 0.5)"
+            color={"white"}
+            position={"absolute"}
+            top={"1"}
+          >
+            <Center>{heading}</Center>
+          </Box>
+        </Center>
+
+        {/* <Heading
+            // bg={"gray.100"}
+            _hover={{
+              bg: "gray.100",
+            }}
+            // p={2}
+            // mx={2}
+            fontSize={20}
+            color={"black"}
+            // position="absolute"
+            // top="2%"
+          >
+            
+          </Heading> */}
+
         <Image
           borderRadius={"md"}
           boxSize={{ md: "250px", base: "100%" }}
@@ -65,20 +92,6 @@ const Card = ({ heading, description, imageUrl, href, id }: ICardprops) => {
           // src={`${imageUrl ? `${API_ENDPOINT}/products/${imageUrl}` : ""}`}
           alt="service"
         />
-        <Heading
-          // bg={"gray.100"}
-          _hover={{
-            bg: "gray.100",
-          }}
-          p={2}
-          mx={2}
-          fontSize={20}
-          color={"black"}
-          position="absolute"
-          top="2%"
-        >
-          {heading}
-        </Heading>
         <button className="m-4 absolute bottom-0 text-sm border border-gray-300 text-white hover:bg-gray-100 hover:text-black py-2 px-4 rounded-full transition duration-300 ease-in-out">
           See Details
         </button>

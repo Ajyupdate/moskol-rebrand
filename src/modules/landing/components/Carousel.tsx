@@ -11,7 +11,6 @@ import Link from "next/link";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export default function Carousel() {
-  console.log(API_ENDPOINT);
   const [url, setUrl] = React.useState("");
 
   React.useEffect(() => {
