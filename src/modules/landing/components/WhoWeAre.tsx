@@ -11,9 +11,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { FaLightbulb, FaShieldAlt } from "react-icons/fa";
 import { PiParallelogramFill } from "react-icons/pi";
+
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 interface FeatureProps {
@@ -47,6 +48,15 @@ const Feature = ({ text, icon, heading }: FeatureProps) => {
 };
 
 const WhoWeAre = () => {
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    fetch(`${API_ENDPOINT}/image/whoweare`)
+      .then((res) => res.json())
+      .then((data) => {
+        setImage(data);
+      })
+      .catch((error) => console.log("error:", error));
+  }, []);
   return (
     <Grid
       templateColumns={["1fr", "1fr 1fr"]}
@@ -58,7 +68,7 @@ const WhoWeAre = () => {
         <Box position="relative">
           <Image
             shadow={"md"}
-            src={`${API_ENDPOINT}/products/uploads/5992a62a-f92e-4339-a444-731fe6b06477`}
+            src={image}
             alt="Experience Image"
             width="100%"
             height="auto"

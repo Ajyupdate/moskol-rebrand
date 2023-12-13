@@ -14,7 +14,7 @@ export default function Carousel() {
   const [url, setUrl] = React.useState("");
 
   React.useEffect(() => {
-    fetch(`${API_ENDPOINT}/image`)
+    fetch(`${API_ENDPOINT}/image?key=639d10204b29694ee7683203a6d88b01`)
       .then((res) => res.json())
       .then((data) => {
         setUrl(data);
